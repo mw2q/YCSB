@@ -21,6 +21,9 @@ import org.json.simple.JSONObject;
 import org.postgresql.Driver;
 import org.postgresql.util.PGobject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +34,8 @@ import java.util.*;
  * PostgreNoSQL client for YCSB framework.
  */
 public class PostgreNoSQLDBClient extends DB {
+  private static final Logger LOG = LoggerFactory.getLogger(PostgreNoSQLDBClient.class);
+
   /** The driver to get the connection to postgresql. */
   private static Driver postgrenosqlDriver;
 
@@ -75,7 +80,7 @@ public class PostgreNoSQLDBClient extends DB {
   @Override
   public void init() throws DBException {
     if (initialized) {
-      System.err.println("Client connection already initialized.");
+      LOG.error("Client connection already initialized.");
       return;
     }
     props = getProperties();
@@ -93,7 +98,7 @@ public class PostgreNoSQLDBClient extends DB {
       connection = postgrenosqlDriver.connect(urls, tmpProps);
       connection.setAutoCommit(autoCommit);
     } catch (Exception e){
-      System.err.println("Error during initialization: " + e);
+      LOG.error("Error during initialization: " + e);
     }
   }
 
@@ -119,7 +124,7 @@ public class PostgreNoSQLDBClient extends DB {
       return Status.OK;
 
     } catch (SQLException e) {
-      System.err.println("Error in processing read of table " + tableName + ": " + e);
+      LOG.error("Error in processing read of table " + tableName + ": " + e);
       return Status.ERROR;
     }
   }
@@ -149,7 +154,7 @@ public class PostgreNoSQLDBClient extends DB {
       resultSet.close();
       return Status.OK;
     } catch (SQLException e) {
-      System.err.println("Error in processing scan of table: " + tableName + ": " + e);
+      LOG.error("Error in processing scan of table: " + tableName + ": " + e);
       return Status.ERROR;
     }
   }
@@ -177,7 +182,7 @@ public class PostgreNoSQLDBClient extends DB {
       }
       return Status.UNEXPECTED_STATE;
     } catch (SQLException e) {
-      System.err.println("Error in processing update to table: " + tableName + e);
+      LOG.error("Error in processing update to table: " + tableName + e);
       return Status.ERROR;
     }
   }
@@ -206,7 +211,7 @@ public class PostgreNoSQLDBClient extends DB {
 
       return Status.UNEXPECTED_STATE;
     } catch (SQLException e) {
-      System.err.println("Error in processing insert to table: " + tableName + ": " + e);
+      LOG.error("Error in processing insert to table: " + tableName + ": " + e);
       return Status.ERROR;
     }
   }
@@ -225,7 +230,7 @@ public class PostgreNoSQLDBClient extends DB {
 
       return Status.UNEXPECTED_STATE;
     } catch (SQLException e) {
-      System.err.println("Error in processing delete to table: " + tableName + e);
+      LOG.error("Error in processing delete to table: " + tableName + e);
       return Status.ERROR;
     }
   }

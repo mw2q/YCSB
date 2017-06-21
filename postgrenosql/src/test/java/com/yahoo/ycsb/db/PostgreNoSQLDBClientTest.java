@@ -30,6 +30,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertArrayEquals;
@@ -40,6 +43,8 @@ import static org.junit.Assume.assumeNoException;
  * PostgreNoSQL test client for YCSB framework.
  */
 public class PostgreNoSQLDBClientTest {
+  private static final Logger LOG = LoggerFactory.getLogger(PostgreNoSQLDBClientTest.class);
+
   /** The default port for PostgreSQL. */
   private static final int DEFAULT_PORT = 5430;
   private static final String DATABASE_NAME = "test";
@@ -83,7 +88,7 @@ public class PostgreNoSQLDBClientTest {
       postgreNoSQLClient.init();
     }
     catch (SQLException | DBException e){
-      System.err.println(e);
+      LOG.error(e.toString());
     }
   }
 
@@ -121,7 +126,7 @@ public class PostgreNoSQLDBClientTest {
         assertArrayEquals("Read result does not match wrote entries.", entry.getValue().toArray(), copiedInsertMap.get(entry.getKey()).toArray());
       }
     } catch (Exception e){
-      System.err.println(e);
+      LOG.error(e.toString());
     }
   }
 
@@ -161,7 +166,7 @@ public class PostgreNoSQLDBClientTest {
       assertThat("Read did not return not found (0).", result, is(Status.NOT_FOUND));
 
     } catch (Exception e){
-      System.err.println(e);
+      LOG.error(e.toString());
     }
   }
 
@@ -229,13 +234,13 @@ public class PostgreNoSQLDBClientTest {
       assertThat("Value was not updated correctly.", readResults.get("FIELD0").toArray(), is(new byte[]{99, 99, 99, 99}));
 
     } catch (Exception e){
-      System.err.println(e);
+      LOG.error(e.toString());
     }
   }
 
   private static void createTable(){
     if (null != postgreSQLConnection){
-      System.out.println("createTable");
+      LOG.info("createTable");
       try{
         // create sql command
         StringBuilder sqlCommand = new StringBuilder("CREATE TABLE");
@@ -250,15 +255,17 @@ public class PostgreNoSQLDBClientTest {
 
         // create table
         PreparedStatement statement = postgreSQLConnection.prepareStatement(sqlCommand.toString());
+        LOG.info(statement.toString());
         statement.execute();
       } catch (SQLException e){
-        System.err.println(e);
+        LOG.error(e.toString());
       }
     }
   }
 
   private static void deleteTable(){
     if (null != postgreSQLConnection){
+      LOG.info("deleteTable");
       try{
         // create sql command
         StringBuilder sqlCommand = new StringBuilder("DROP TABLE IF EXISTS");
@@ -267,10 +274,10 @@ public class PostgreNoSQLDBClientTest {
 
         // delete table
         PreparedStatement statement = postgreSQLConnection.prepareStatement(sqlCommand.toString());
-        System.out.println(statement);
+        LOG.info(statement.toString());
         statement.execute();
       } catch (SQLException e){
-        System.err.println(e);
+        LOG.error(e.toString());
       }
     }
   }
