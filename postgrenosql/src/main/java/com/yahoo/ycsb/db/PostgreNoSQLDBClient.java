@@ -231,6 +231,7 @@ public class PostgreNoSQLDBClient extends DB {
   }
 
   private String createReadStatement(String table, Set<String> fields) {
+    // TODO: Change implementation to prepared statements
     StringBuilder read = new StringBuilder("SELECT " + PRIMARY_KEY + " AS " + PRIMARY_KEY);
     if (fields != null){
       for (String field:fields){
@@ -246,6 +247,7 @@ public class PostgreNoSQLDBClient extends DB {
   }
 
   private String createScanStatement(String table, Set<String> fields) {
+    // TODO: Change implementation to prepared statements
     StringBuilder select = new StringBuilder("SELECT " + PRIMARY_KEY + " AS " + PRIMARY_KEY);
     if (fields != null){
       for (String field:fields){
@@ -263,6 +265,7 @@ public class PostgreNoSQLDBClient extends DB {
   }
 
   public String createUpdateStatement(String table) {
+    // TODO: Change implementation to prepared statements
     StringBuilder update = new StringBuilder("UPDATE ");
     update.append(table);
     update.append(" SET ");
@@ -275,6 +278,7 @@ public class PostgreNoSQLDBClient extends DB {
   }
 
   private String createInsertStatement(String table) {
+    // TODO: Change implementation to prepared statements
     StringBuilder insert = new StringBuilder("INSERT INTO ");
     insert.append(table);
     insert.append(" (" + PRIMARY_KEY + "," + COLUMN_NAME + ")");
@@ -283,6 +287,7 @@ public class PostgreNoSQLDBClient extends DB {
   }
 
   private String createDeleteStatement(String table) {
+    // TODO: Change implementation to prepared statements
     StringBuilder delete = new StringBuilder("DELETE FROM ");
     delete.append(table);
     delete.append(" WHERE ");
