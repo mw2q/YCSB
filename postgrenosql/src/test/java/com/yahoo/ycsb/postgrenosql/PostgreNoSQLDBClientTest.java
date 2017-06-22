@@ -46,13 +46,14 @@ public class PostgreNoSQLDBClientTest {
   private static final Logger LOG = LoggerFactory.getLogger(PostgreNoSQLDBClientTest.class);
 
   /** The default port for PostgreSQL. */
-  private static final int DEFAULT_PORT = 5430;
+  private static final int DEFAULT_PORT = 5432;
   private static final String DATABASE_NAME = "test";
   private static final String DEFAULT_USER = "postgres";
   private static final String DEFAULT_PWD = "postgres";
 
   /** The properties settings */
-  private static final String TEST_DB_URL = "jdbc:postgresql://localhost:" + DEFAULT_PORT + "/" + DATABASE_NAME;
+  private static final String HOST_NAME  = "localhost";
+  private static final String TEST_DB_URL = "jdbc:postgresql://" + HOST_NAME + ":" + DEFAULT_PORT + "/" + DATABASE_NAME;
   private static final String TABLE_NAME = "usertable";
   private static final int FIELD_LENGTH = 32;
   private static final String FIELD_PREFIX = "FIELD";
@@ -64,7 +65,7 @@ public class PostgreNoSQLDBClientTest {
   @BeforeClass
   public static void setUp() {
     // Check whether postgres is available
-    try (Socket socket = new Socket(InetAddress.getLocalHost(), DEFAULT_PORT)){
+    try (Socket socket = new Socket(HOST_NAME, DEFAULT_PORT)){
       assertThat("Socket is not bound.", socket.getLocalPort(), not(-1));
     } catch (IOException connectFailed) {
       assumeNoException("PostgreSQL is not running. Skipping tests.", connectFailed);
