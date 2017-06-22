@@ -36,12 +36,15 @@ The following command can be used for that:
 Defines the connection string to the Postgres Server. Replace localhost by the address of your Postgres Server, 5432 by the port your Server is listing to and test by the name of your database.
 
 **postgrenosql.user = postgres**
+
 Defines the username the client uses to connect to the Postgres Server.
 
 **postgrenosql.passwd = postgres**
+
 Defines the password of user the client uses to connect to the Postgres Server.
 
 **postgrenosql.autocommit = true**
+
 Defines whether transactions shoud by applied directly.
 
 
