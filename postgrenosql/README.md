@@ -24,7 +24,7 @@ The YCSB PostgreNoSQL is tested on PostgreSQL Server 9.5 and 9.6.
  
 In the next step grant access rights for the default postgres user to access the Postgres Server.
 In case you run the YCSB client and the Postgres Server on different machines make sure that the server is reachable.
-In the next step create a database, e.g., test and afterwards a table that is able to store the documents. 
+Then create a database, e.g., test and create a table that is able to store the documents. 
 
 The following command can be used for that:
 
