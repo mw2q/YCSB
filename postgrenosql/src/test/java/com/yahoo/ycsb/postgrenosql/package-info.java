@@ -18,4 +18,4 @@
 /**
  * The YCSB binding for PostgreNoSQL client.
  */
-package com.yahoo.ycsb.postgrenosql;
+package com.yahoo.ycsb.db;

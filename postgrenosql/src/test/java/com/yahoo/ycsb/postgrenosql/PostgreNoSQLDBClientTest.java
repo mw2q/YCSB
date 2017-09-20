@@ -14,7 +14,7 @@
  * permissions and limitations under the License. See accompanying
  * LICENSE file.
  */
-package com.yahoo.ycsb.postgrenosql;
+package com.yahoo.ycsb.db;
 
 import com.yahoo.ycsb.*;
 import org.junit.AfterClass;
